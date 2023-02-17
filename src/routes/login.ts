@@ -1,5 +1,7 @@
 import { Router } from 'express'
 import AuthenticateUserController from '../controllers/AuthenticateUserController'
+import ProfileUserController from '../controllers/ProfileUserController'
+import { ensureAuth } from '../middleware/ensureAuth'
 
 const routes = Router()
 
@@ -14,5 +16,7 @@ routes.get('/signin/callback', (req, res) => {
 
     return res.json(code)
 })
+
+routes.get('/user', ensureAuth, ProfileUserController.handle)
 
 export default routes
